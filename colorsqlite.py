@@ -33,16 +33,26 @@ def view():
     conn.close()
     print(rows)
     
-def displaycolorname(B,G,R):
+def displaycolorname(R,G,B):
     conn = sqlite3.connect("colors.db")
     c = conn.cursor()
-    c.execute("""SELECT colorname FROM colorstable WHERE B=? AND G=? AND R=?""",(B,G,R))
+    c.execute("""SELECT colorname FROM colorstable WHERE R=? AND G=? AND B=?""",(R,G,B))
     x =  c.fetchone()
     conn.commit()
     conn.close()
     return x
 
+def count():
+    conn = sqlite3.connect("colors.db")
+    c = conn.cursor()
+    c.execute("""SELECT COUNT(*) FROM colorstable""")
+    conn.commit()
+    rowcount = c.fetchone()[0]
+    print(rowcount)
+    conn.close()
+
 connect()
 #insert()
 #view()
-#displaycolorname(B=0, G=0, R=0)
+#displaycolorname(R=0, G=0, B=0)
+#count()
